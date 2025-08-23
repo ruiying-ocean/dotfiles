@@ -30,7 +30,10 @@ zinit for \
       zdharma-continuum/history-search-multi-word
 
 # Load theme
-zi light geometry-zsh/geometry
+zinit ice as"command" from"gh-r" \
+      atclone"./starship init zsh > init.zsh; ./starship completions zsh > _starship" \
+      atpull"%atclone" src"init.zsh"
+zinit light starship/starship
 
 # ============================================================================
 # History 
@@ -158,10 +161,6 @@ fi
 
 if (( $+commands[fd] )); then
     alias find='fd'
-fi
-
-if (( $+commands[rg] )); then
-    export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
 fi
 
 if (( $+commands[delta] )); then
