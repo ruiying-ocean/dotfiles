@@ -119,6 +119,9 @@ zinit load bootandy/dust
 zinit ice from"gh-r" as"program"
 zinit load astral-sh/uv
 
+zinit ice from"gh-r" as"program"
+zinit load Wilfred/difftastic
+
 zinit ice as"program" pick"$ZPFX/bin/git-*" make"PREFIX=$ZPFX"
 zinit load tj/git-extras
 
