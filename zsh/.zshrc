@@ -29,10 +29,10 @@ zinit for \
       zdharma-continuum/fast-syntax-highlighting \
       zdharma-continuum/history-search-multi-word
 
-# Load theme
+# Load theme spaceship
 zinit ice as"command" from"gh-r" \
-      atclone"./starship init zsh > init.zsh; ./starship completions zsh > _starship" \
-      atpull"%atclone" src"init.zsh"
+              atclone"./starship init zsh > init.zsh; ./starship completions zsh > _starship" \
+              atpull"%atclone" src"init.zsh"
 zinit light starship/starship
 
 # ============================================================================
@@ -122,9 +122,6 @@ zinit load astral-sh/uv
 zinit ice from"gh-r" as"program"
 zinit load Wilfred/difftastic
 
-zinit ice as"program" pick"$ZPFX/bin/git-*" make"PREFIX=$ZPFX"
-zinit load tj/git-extras
-
 # Initialize tools after loading
 zinit wait lucid for \
       as"program" has"fzf" \
@@ -136,24 +133,25 @@ zinit wait lucid for \
 
 # Tool configurations and aliases
 if (( $+commands[fzf] )); then
-    export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border --ansi --preview-window=right:60%'
+    export FZF_DEFAULT_OPTS='
+      --height 40%
+      --layout=reverse
+      --border
+      --ansi
+      --preview-window=right:60%
+      --color=fg:#d0d0d0,bg:#2e3440,hl:#87afff
+      --color=fg+:#ffffff,bg+:#434c5e,hl+:#5fd7ff
+      --color=info:#afafaf,prompt:#5fd7af,pointer:#ff5f5f
+      --color=marker:#ffff5f,spinner:#af5fff,header:#87afaf
+    '
     export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git --exclude node_modules'
     export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
     export FZF_ALT_C_COMMAND='fd --type d --hidden --follow --exclude .git --exclude node_modules'
     export FZF_CTRL_R_OPTS='--preview "echo {}" --preview-window down:3:hidden:wrap --bind "?:toggle-preview"'
 fi
 
-if (( $+commands[zoxide] )); then
-    alias cd='z'
-    alias cdi='zi'
-fi
-
 if (( $+commands[eza] )); then
-    alias ll='eza -la --icons --group-directories-first --git'
-    alias la='eza -a --icons --group-directories-first'
-    alias lt='eza --tree --icons --level=2'
-    alias ltl='eza --tree --icons --level=3 -l'
-    alias ls='eza --icons --group-directories-first'
+    alias l='eza --icons --group-directories-first'
 fi
 
 if (( $+commands[bat] )); then
@@ -162,17 +160,10 @@ if (( $+commands[bat] )); then
     export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 fi
 
-if (( $+commands[fd] )); then
-    alias find='fd'
-fi
-
 if (( $+commands[delta] )); then
     export GIT_PAGER='delta'
 fi
 
-if (( $+commands[dust] )); then
-    alias du='dust'
-fi
 
 # ============================================================================
 # MISC
@@ -180,3 +171,4 @@ fi
 
 skip_global_compinit=1
 
+alias matlab="/Applications/MATLAB_R2025b.app/bin/matlab -nojvm -nodesktop"
