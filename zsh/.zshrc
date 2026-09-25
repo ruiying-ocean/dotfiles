@@ -91,8 +91,12 @@ alias eq="emacsclient -e '(save-buffers-kill-emacs)'"
 # CLI tools (fzf, zoxide, bat, fd, rg, delta, dust, uv, difft, eza) are
 # installed with Homebrew — update them with `brew upgrade`.
 
-# zoxide adds z/zi alongside the built-in cd (no override).
-(( $+commands[zoxide] )) && eval "$(zoxide init zsh)"
+# zoxide adds z alongside the built-in cd (no override). Its interactive
+# picker is `zf`, since `zi` is taken by zinit's alias.
+if (( $+commands[zoxide] )); then
+    eval "$(zoxide init zsh)"
+    alias zf='__zoxide_zi'
+fi
 
 # fzf keybindings (Ctrl-T, Ctrl-R, Alt-C) and completion
 [[ -t 0 ]] && (( $+commands[fzf] )) && source <(fzf --zsh)
