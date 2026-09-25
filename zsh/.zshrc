@@ -9,7 +9,8 @@ ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
 [ ! -d $ZINIT_HOME/.git ] && git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
 source "${ZINIT_HOME}/zinit.zsh"
 
-source "$HOME/.local/share/zinit/zinit.git/zinit.zsh"
+typeset -U path   # zinit prepends plugin dirs; keep PATH free of duplicates
+
 autoload -Uz _zinit
 (( ${+_comps} )) && _comps[zinit]=_zinit
 
@@ -29,24 +30,21 @@ zinit for \
       zdharma-continuum/fast-syntax-highlighting \
       zdharma-continuum/history-search-multi-word
 
-# Load theme spaceship
-zinit ice as"command" from"gh-r" \
-              atclone"./starship init zsh > init.zsh; ./starship completions zsh > _starship" \
-              atpull"%atclone" src"init.zsh"
-zinit light starship/starship
+# Load theme: Pure (async, pure-zsh prompt)
+zinit ice compile'(pure|async).zsh' pick'async.zsh' src'pure.zsh'
+zinit light sindresorhus/pure
 
 # ============================================================================
 # History 
 # ============================================================================
 
 HISTFILE=~/.zsh_history
-HISTSIZE=10000
-SAVEHIST=10000
+HISTSIZE=50000
+SAVEHIST=50000
 
 setopt EXTENDED_HISTORY
 setopt SHARE_HISTORY
 setopt HIST_EXPIRE_DUPS_FIRST
-setopt HIST_IGNORE_DUPS
 setopt HIST_IGNORE_ALL_DUPS
 setopt HIST_FIND_NO_DUPS
 setopt HIST_IGNORE_SPACE
@@ -66,13 +64,11 @@ setopt COMPLETE_IN_WORD
 setopt ALWAYS_TO_END
 setopt GLOB_COMPLETE
 setopt LIST_AMBIGUOUS
-setopt MENU_COMPLETE
 
 setopt CORRECT
 setopt INTERACTIVE_COMMENTS
 
 unsetopt FLOW_CONTROL
-unsetopt MENU_COMPLETE
 
 # ============================================================================
 # KEYBINDINGS
@@ -92,44 +88,14 @@ alias eq="emacsclient -e '(save-buffers-kill-emacs)'"
 # ============================================================================
 # MODERN TOOLS
 # ============================================================================
-zinit ice from"gh-r" as"program"
-zinit load junegunn/fzf
+# CLI tools (fzf, zoxide, bat, fd, rg, delta, dust, uv, difft, eza) are
+# installed with Homebrew — update them with `brew upgrade`.
 
-zinit ice from"gh-r" as"program"
-zinit load ajeetdsouza/zoxide
+# zoxide adds z/zi alongside the built-in cd (no override).
+(( $+commands[zoxide] )) && eval "$(zoxide init zsh)"
 
-zinit ice from"gh-r" as"program"
-zinit load eza-community/eza
-
-zinit ice from"gh-r" as"program"
-zinit load sharkdp/bat
-
-zinit ice from"gh-r" as"program"
-zinit load sharkdp/fd
-
-zinit ice from"gh-r" as"program"
-zinit load BurntSushi/ripgrep
-
-zinit ice from"gh-r" as"program"
-zinit load dandavison/delta
-
-zinit ice from"gh-r" as"program"
-zinit load bootandy/dust
-
-zinit ice from"gh-r" as"program"
-zinit load astral-sh/uv
-
-zinit ice from"gh-r" as"program"
-zinit load Wilfred/difftastic
-
-# Initialize tools after loading
-zinit wait lucid for \
-      as"program" has"fzf" \
-      atinit"source <(fzf --zsh)" \
-      zdharma-continuum/null \
-      as"program" has"zoxide" \
-      atinit"eval \"\$(zoxide init zsh)\"" \
-      zdharma-continuum/null
+# fzf keybindings (Ctrl-T, Ctrl-R, Alt-C) and completion
+[[ -t 0 ]] && (( $+commands[fzf] )) && source <(fzf --zsh)
 
 # Tool configurations and aliases
 if (( $+commands[fzf] )); then
@@ -156,7 +122,7 @@ fi
 
 if (( $+commands[bat] )); then
     alias batl='bat --style=numbers,changes'
-    export BAT_THEME="Catppuccin-mocha"
+    export BAT_THEME="Catppuccin Mocha"
     export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 fi
 
@@ -164,11 +130,21 @@ if (( $+commands[delta] )); then
     export GIT_PAGER='delta'
 fi
 
-
 # ============================================================================
 # MISC
 # ============================================================================
 
-skip_global_compinit=1
-
+# >>> mamba initialize >>>
+# !! Contents within this block are managed by 'mamba shell init' !!
+export MAMBA_EXE='/Users/yingrui/miniforge3/bin/mamba';
+export MAMBA_ROOT_PREFIX='/Users/yingrui/miniforge3';
+__mamba_setup="$("$MAMBA_EXE" shell hook --shell zsh --root-prefix "$MAMBA_ROOT_PREFIX" 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__mamba_setup"
+else
+    alias mamba="$MAMBA_EXE"  # Fallback on help from mamba activate
+fi
+unset __mamba_setup
+# <<< mamba initialize <<<
+alias vim=nvim
 alias matlab="/Applications/MATLAB_R2025b.app/bin/matlab -nojvm -nodesktop"
