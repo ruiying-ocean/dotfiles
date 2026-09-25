@@ -20,7 +20,7 @@ autoload -Uz _zinit
 # ============================================================================
 # Load completions first
 zi light zsh-users/zsh-completions
-autoload -U compinit && compinit
+autoload -U compinit && compinit $ZSH_COMPINIT_FLAGS   # set to -u in ~/.zprofile.local if fpath has dirs owned by another account
 
 # Load plugins (removed duplicate pure theme loading)
 zinit for \
@@ -140,8 +140,8 @@ fi
 
 # >>> mamba initialize >>>
 # !! Contents within this block are managed by 'mamba shell init' !!
-export MAMBA_EXE='/Users/yingrui/miniforge3/bin/mamba';
-export MAMBA_ROOT_PREFIX='/Users/yingrui/miniforge3';
+export MAMBA_EXE="$HOME/miniforge3/bin/mamba";
+export MAMBA_ROOT_PREFIX="${MAMBA_ROOT_PREFIX:-$HOME/miniforge3}";  # override in ~/.zprofile.local
 __mamba_setup="$("$MAMBA_EXE" shell hook --shell zsh --root-prefix "$MAMBA_ROOT_PREFIX" 2> /dev/null)"
 if [ $? -eq 0 ]; then
     eval "$__mamba_setup"
@@ -152,3 +152,6 @@ unset __mamba_setup
 # <<< mamba initialize <<<
 alias vim=nvim
 alias matlab="/Applications/MATLAB_R2025b.app/bin/matlab -nojvm -nodesktop"
+
+# Machine-specific settings and secrets (not tracked)
+[[ -r ~/.zshrc.local ]] && source ~/.zshrc.local

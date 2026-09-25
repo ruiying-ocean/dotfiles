@@ -4,7 +4,7 @@
 
 typeset -U path   # drop duplicate PATH entries automatically
 
-eval "$(/opt/homebrew/bin/brew shellenv)"
+[[ -x /opt/homebrew/bin/brew ]] && eval "$(/opt/homebrew/bin/brew shellenv)"
 
 path=(
     /opt/homebrew/bin
@@ -20,3 +20,6 @@ export JAVA_HOME="$(/usr/libexec/java_home 2>/dev/null)"
 
 export NETCDF_ROOT=/opt/homebrew/opt/netcdf
 export NETCDF_FORTRAN_ROOT=/opt/homebrew/opt/netcdf-fortran
+
+# Machine-specific PATH, env vars and secrets (not tracked)
+[[ -r ~/.zprofile.local ]] && source ~/.zprofile.local
