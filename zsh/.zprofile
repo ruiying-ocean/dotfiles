@@ -2,7 +2,7 @@
 # Lives here (not .zshenv) so macOS's /etc/zprofile path_helper runs first
 # and can't push these entries behind the system paths.
 
-typeset -U path   # drop duplicate PATH entries automatically
+typeset -U path fpath   # drop duplicate PATH/FPATH entries automatically
 
 [[ -x /opt/homebrew/bin/brew ]] && eval "$(/opt/homebrew/bin/brew shellenv)"
 

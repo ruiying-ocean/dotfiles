@@ -9,7 +9,9 @@ ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
 [ ! -d $ZINIT_HOME/.git ] && git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
 source "${ZINIT_HOME}/zinit.zsh"
 
-typeset -U path   # zinit prepends plugin dirs; keep PATH free of duplicates
+typeset -U path fpath   # zinit prepends plugin dirs; keep PATH free of duplicates.
+                        # fpath too: FPATH is exported, so nested shells re-add the same
+                        # dirs and compinit rebuilds ~/.zcompdump when the file count changes
 
 autoload -Uz _zinit
 (( ${+_comps} )) && _comps[zinit]=_zinit
