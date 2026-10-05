@@ -1,0 +1,42 @@
+[user]
+	name = Rui Ying (Mac)
+	email = 38958822+ruiying-ocean@users.noreply.github.com
+[core]
+	autocrlf = input
+	pager = delta
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+
+# ----------------------------------------------------------------------------
+# delta: pager for diff/log/show/blame (theme follows $BAT_THEME)
+# ----------------------------------------------------------------------------
+[interactive]
+	diffFilter = delta --color-only
+[delta]
+	navigate = true        # n / N jump between files
+	line-numbers = true
+[merge]
+	conflictstyle = zdiff3
+
+# ----------------------------------------------------------------------------
+# difftastic: syntax-aware diffs on demand (plain `git diff` stays line-based,
+# so patches and `git apply` keep working)
+# ----------------------------------------------------------------------------
+[alias]
+	dft = -c diff.external=difft diff
+	dlog = -c diff.external=difft log -p --ext-diff
+	dshow = -c diff.external=difft show --ext-diff
+
+[diff]
+	tool = kitty
+	guitool = kitty.gui
+[difftool]
+	prompt = false
+	trustExitCode = true
+[difftool "kitty"]
+	cmd = kitty +kitten diff $LOCAL $REMOTE
+[difftool "kitty.gui"]
+	cmd = kitty kitty +kitten diff $LOCAL $REMOTE

@@ -4,12 +4,18 @@
 set -e
 cd "$(dirname "$0")"
 
-for f in zsh/.zshenv zsh/.zprofile zsh/.zshrc vim/.vimrc; do
-    dest="$HOME/$(basename "$f")"
-    if [ -e "$dest" ] && [ ! -L "$dest" ]; then
-        mv "$dest" "$dest.bak.$(date +%Y%m%d%H%M%S)"
-        echo "backed up $dest"
+# link <repo path> <destination>
+link() {
+    mkdir -p "$(dirname "$2")"
+    if [ -e "$2" ] && [ ! -L "$2" ]; then
+        mv "$2" "$2.bak.$(date +%Y%m%d%H%M%S)"
+        echo "backed up $2"
     fi
-    ln -sfn "$PWD/$f" "$dest"
-    echo "linked $dest -> $PWD/$f"
+    ln -sfn "$PWD/$1" "$2"
+    echo "linked $2 -> $PWD/$1"
+}
+
+for f in zsh/.zshenv zsh/.zprofile zsh/.zshrc vim/.vimrc git/.gitconfig; do
+    link "$f" "$HOME/$(basename "$f")"
 done
+link git/ignore "$HOME/.config/git/ignore"
