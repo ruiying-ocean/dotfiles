@@ -19,3 +19,4 @@ for f in zsh/.zshenv zsh/.zprofile zsh/.zshrc vim/.vimrc git/.gitconfig; do
     link "$f" "$HOME/$(basename "$f")"
 done
 link git/ignore "$HOME/.config/git/ignore"
+link nvim "$HOME/.config/nvim"

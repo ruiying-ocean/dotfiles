@@ -21,6 +21,10 @@ brew bundle dump --file=~/dotfiles/Brewfile --force    # refresh after installin
 
 `git/.gitconfig` uses delta as the pager. For syntax-aware diffs from difftastic, use `git dft`, `git dlog` and `git dshow`.
 
+## Neovim
+
+`nvim/` is a [LazyVim](https://www.lazyvim.org) config, linked to `~/.config/nvim`. Plugins install themselves on first launch at the versions pinned in `nvim/lazy-lock.json`; commit that file after `:Lazy update`. `vim/.vimrc` is only for plain `vim`, which Neovim does not read.
+
 ## Machine-specific config
 
 The repo holds only what is shared by every machine. Anything that belongs to one machine, including secrets, goes in untracked files, which the tracked ones source at the end:
