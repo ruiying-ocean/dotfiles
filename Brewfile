@@ -9,8 +9,6 @@ brew "aspell"
 brew "autoconf"
 # Tool for generating GNU Standards-compliant Makefiles
 brew "automake"
-# Language Server for Bash
-brew "bash-language-server"
 # C library of Git core methods that is re-entrant and linkable
 brew "libgit2"
 # Clone of cat(1) with syntax highlighting and Git integration
@@ -43,8 +41,6 @@ brew "fortls"
 brew "fzf"
 # GNU compiler collection
 brew "gcc@13"
-# Interact with Google Gemini AI models from the command-line
-brew "gemini-cli"
 # OpenType text shaping engine
 brew "harfbuzz"
 # OCR (Optical Character Recognition) engine
@@ -95,8 +91,6 @@ brew "pixi"
 brew "poppler"
 # Implementation of Python 3 in Python
 brew "pypy3.10"
-# Static type checker for Python
-brew "pyright"
 # Search tool like grep and The Silver Searcher
 brew "ripgrep"
 # Version control system designed to be a better CVS
@@ -113,8 +107,6 @@ brew "wget"
 brew "zoxide"
 # Desktop password and login vault
 cask "bitwarden"
-# OpenAI's coding agent that runs in your terminal
-cask "codex"
 # GNU Emacs text editor
 cask "emacs-app"
 # Menu bar manager
@@ -127,4 +119,11 @@ cask "quarto"
 cask "refine"
 # Rime input method engine
 cask "squirrel-app"
+# Global npm tools (installed with the npm on PATH)
+npm "@github/copilot"
+npm "@github/copilot-language-server"
+npm "@openai/codex"
+npm "bash-language-server"
 npm "livedown"
+npm "pyright"
+npm "yaml-language-server"

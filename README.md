@@ -10,12 +10,16 @@ git clone git@github.com:ruiying-ocean/dotfiles.git ~/dotfiles && ~/dotfiles/ins
 
 `install.sh` symlinks the files into `$HOME`; any real file already there is backed up to `<name>.bak.<timestamp>`.
 
-CLI tools and apps come from Homebrew (`Brewfile`); zinit (bootstrapped by `.zshrc`) only manages zsh plugins and the Pure prompt.
+`Brewfile` lists CLI tools and apps, including global npm tools with `npm "package-name"` entries. The npm entries use the npm on `PATH`; when using nvm, activate the intended Node version first. zinit (bootstrapped by `.zshrc`) only manages zsh plugins and the Pure prompt.
 
 ```sh
 brew bundle --file=~/dotfiles/Brewfile                 # install
 brew bundle dump --file=~/dotfiles/Brewfile --force    # refresh after installing something new
 ```
+
+Keep each tool under one installer: Codex, Copilot, and the Bash, Python, and YAML language servers are npm entries. Claude Code uses its [native installer](https://code.claude.com/docs/en/setup#install-claude-code) and updates separately. npm and Corepack are managed with the Node installation rather than listed here.
+
+Project libraries belong in that project's `package.json` and `package-lock.json`. Avoid a catch-all `~/package.json`: npm can pick it up from unrelated subfolders. To add a machine-wide npm tool, add an `npm` entry to `Brewfile` and run `brew bundle`.
 
 ## Git
 
