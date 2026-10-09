@@ -25,6 +25,16 @@ brew bundle dump --file=~/dotfiles/Brewfile --force    # refresh after installin
 
 `nvim/` is a [LazyVim](https://www.lazyvim.org) config, linked to `~/.config/nvim`. Plugins install themselves on first launch at the versions pinned in `nvim/lazy-lock.json`; commit that file after `:Lazy update`. `vim/.vimrc` is only for plain `vim`, which Neovim does not read.
 
+## Agent skills
+
+Skills for Codex and Claude Code live in their own private repo, cloned as `~/.agents`:
+
+```sh
+git clone git@github.com:ruiying-ocean/agent-skills.git ~/.agents && ~/.agents/sync.sh
+```
+
+`sync.sh` downloads the third-party skills listed in `Skillfile` and links every skill into `~/.claude/skills`. To pick up changes later, run `git -C ~/.agents pull && ~/.agents/sync.sh`. That repo's README covers the rest.
+
 ## Machine-specific config
 
 The repo holds only what is shared by every machine. Anything that belongs to one machine, including secrets, goes in untracked files, which the tracked ones source at the end:
