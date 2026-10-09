@@ -112,12 +112,11 @@ if (( $+commands[fzf] )); then
       --ansi
       --preview-window=right:60%
       --color=light
-      --color=fg:-1,bg:-1,hl:#d20f39
-      --color=fg+:#4c4f69,bg+:#ccd0da,hl+:#d20f39
-      --color=selected-bg:#bcc0cc,gutter:-1
-      --color=info:#8839ef,prompt:#8839ef,pointer:#dc8a78
-      --color=marker:#7287fd,spinner:#dc8a78,header:#d20f39
-      --color=border:#9ca0b0,label:#4c4f69
+      --color=fg:-1,bg:-1,gutter:-1,hl:#4078f2:bold
+      --color=fg+:#202227,bg+:#e5e5e6,hl+:#4078f2:bold
+      --color=info:#c18401,prompt:#c18401,pointer:#0184bc
+      --color=marker:#0184bc,spinner:#0184bc,header:#4078f2
+      --color=border:#a0a1a7,label:#383a42
     '
     export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git --exclude node_modules'
     export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
