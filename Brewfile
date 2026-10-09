@@ -67,6 +67,8 @@ brew "libvterm"
 brew "meson"
 # Deep clean and optimize your Mac
 brew "mole"
+# Markdown export and preview in Emacs
+brew "multimarkdown"
 # Lightweight PDF and XPS viewer
 brew "mupdf"
 # Command-line operators for netCDF and HDF files
@@ -87,12 +89,16 @@ brew "pandoc"
 brew "pinentry-mac"
 # Package management made easy
 brew "pixi"
+# Paste clipboard images into Org documents
+brew "pngpaste"
 # PDF rendering library (based on the xpdf-3.0 code base)
 brew "poppler"
 # Implementation of Python 3 in Python
 brew "pypy3.10"
 # Search tool like grep and The Silver Searcher
 brew "ripgrep"
+# Python diagnostics and formatting for LSP Bridge
+brew "ruff"
 # Version control system designed to be a better CVS
 brew "subversion"
 # Implementation of the Language Server Protocol for LaTeX
