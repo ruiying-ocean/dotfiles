@@ -17,7 +17,13 @@ brew bundle --file=~/dotfiles/Brewfile                 # install
 brew bundle dump --file=~/dotfiles/Brewfile --force    # refresh after installing something new
 ```
 
-Keep each tool under one installer: Codex, Copilot, and the Bash, Python, and YAML language servers are npm entries. Claude Code uses its [native installer](https://code.claude.com/docs/en/setup#install-claude-code) and updates separately. npm and Corepack are managed with the Node installation rather than listed here.
+Keep each tool under one installer: Codex and the Bash, Python, and YAML language servers are npm entries. Claude Code uses its [native installer](https://code.claude.com/docs/en/setup#install-claude-code) and updates separately. npm and Corepack are managed with the Node installation rather than listed here.
+
+On a machine without Homebrew, install the same global npm tools directly after installing Node.js and npm:
+
+```sh
+npm install --global @openai/codex bash-language-server livedown pyright yaml-language-server
+```
 
 Project libraries belong in that project's `package.json` and `package-lock.json`. Avoid a catch-all `~/package.json`: npm can pick it up from unrelated subfolders. To add a machine-wide npm tool, add an `npm` entry to `Brewfile` and run `brew bundle`.
 

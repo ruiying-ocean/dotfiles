@@ -120,8 +120,6 @@ cask "refine"
 # Rime input method engine
 cask "squirrel-app"
 # Global npm tools (installed with the npm on PATH)
-npm "@github/copilot"
-npm "@github/copilot-language-server"
 npm "@openai/codex"
 npm "bash-language-server"
 npm "livedown"
